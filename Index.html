@@ -11,7 +11,6 @@
   <body onload="loadCountries()">
     <div id="header">
       <h1>Countries and States</h1>
-      <p>An onboarding project developed by Sean Rowan</p>
       <hr />
     </div>
 
@@ -32,71 +31,7 @@
           <option value="" selected disabled>Select a state</option>
         </select>
       </div>
-
-      <hr />
-
-      <form id="add-new-country">
-        <h2>Add a New Country</h2>
-
-        <label for="newCountryName">Country name:</label>
-        <input
-          type="text"
-          id="newCountryName"
-          name="newCountryName"
-          minlength="4"
-        />
-
-        <label for="newCountryCode">Country code:</label>
-        <input
-          type="text"
-          id="newCountryCode"
-          name="newCountryCode"
-          minlength="2"
-          maxlength="3"
-        />
-
-        <!-- Submit Button -->
-        <label for="submit-country"></label>
-        <button type="submit" id="submit-country">Submit</button>
-      </form>
-
-      <hr />
-
-      <form id="add-new-state">
-        <h2>Add a New State</h2>
-
-        <label for="newStateName">State name:</label>
-        <input
-          type="text"
-          id="newStateName"
-          name="newStateName"
-          minlength="4"
-        />
-
-        <label for="newStateCode">State Code:</label>
-        <input
-          type="text"
-          id="newStateCode"
-          name="newStateCode"
-          minlength="2"
-          maxlength="3"
-        />
-
-        <label for="newStateCountry">Countries:</label>
-        <select
-          id="newStateCountry"
-          name="newStateCountry"
-          class="country-dropdown"
-        >
-          <option value="" selected disabled>Select a country</option>
-        </select>
-
-        <!-- Submit Button -->
-        <label for="submit-state"></label>
-        <button type="submit" id="submit-state">Submit</button>
-      </form>
-    </main>
-
-    <script src="countries.js" async defer></script>
+      
+    <script src="Country and State.js" async defer></script>
   </body>
 </html>
