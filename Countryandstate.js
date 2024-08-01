@@ -2,6 +2,7 @@ function loadCountries() {
   const request = new XMLHttpRequest();
   request.open("GET", "https://xc-countries-api.fly.dev/api/countries/");
 
+  // Add conditional for return code
   request.onload = () => {
     let dropdownsList = document.querySelectorAll(".country-dropdown");
     const countryData = JSON.parse(request.responseText);
@@ -81,6 +82,7 @@ function sendNewCountry() {
 }
 
 function sendNewState() {
+  //Add parameters for state code, state name, and country id
   const request = new XMLHttpRequest();
   request.open("POST", "https://xc-countries-api.fly.dev/api/states/");
   request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -114,6 +116,9 @@ function sendNewState() {
   );
 }
 
+/*
+  Utility Functions
+*/
 function sortByAlpha(ArrayOfObjects) {
   ArrayOfObjects.sort((a, b) => {
     (a = a.name.toLowerCase()), (b = b.name.toLowerCase());
@@ -130,12 +135,15 @@ function sortByAlpha(ArrayOfObjects) {
 
 function validateInput(formElement) {
   if (formElement.getAttribute("type") == "text") {
-    return formElement.value.trim();
+    return formElement.value.trim(); //returns true if field has text, false if empty
   } else if (formElement.tagName == "SELECT" && formElement.value != "") {
     return true;
   }
 }
 
+/*
+  Event Listeners
+*/
 document
   .getElementById("submit-country")
   .addEventListener("click", function (event) {
