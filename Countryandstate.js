@@ -33,13 +33,12 @@ function loadStates() {
   );
 
   request.onload = () => {
-    const dropdown = document.querySelector("#state");
+    const dropdown = document.getElementById("state");
     const statesData = JSON.parse(request.responseText);
     sortByAlpha(statesData);
 
-    if (dropdown.options.length > 1) {
-      dropdown.innerHTML = `<option value="" selected disabled>Select a state</option>`;
-    }
+    dropdown.innerHTML = `<option value="" selected disabled>Select a state</option>`;
+
     for (let i = 0; i < statesData.length; i++) {
       const option = document.createElement("option");
       option.value = statesData[i]["code"];
@@ -51,34 +50,31 @@ function loadStates() {
   request.send();
 }
 
-function sendNewCountry() {
-  const request = new XMLHttpRequest();
-  request.open("POST", "https://xc-countries-api.fly.dev/api/countries/");
-  request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+async function sendNewCountry() {
+  let newCountryCode = document.getElementById("newCountryCode").value;
+  let newCountryName = document.getElementById("newCountryName").value;
 
-  let newCountryCode = document.querySelector("#newCountryCode").value;
-  let newCountryName = document.querySelector("#newCountryName").value;
-
-  request.onload = () => {
-    if (request.readyState === XMLHttpRequest.DONE) {
-      if (request.status >= 200 && request.status < 300) {
-        console.log("Success");
-        console.log(request.responseText);
-        alert("New Country Added!");
-      } else {
-        console.log("Error handling request");
-        console.log(request.responseText);
-        console.log(request.status);
-      }
-    }
+  let newCountry = {
+    code: newCountryCode,
+    name: newCountryName,
   };
 
-  request.send(
-    JSON.stringify({
-      code: newCountryCode,
-      name: newCountryName,
-    })
+  const response = await fetch(
+    "https://xc-countries-api.fly.dev/api/countries/",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCountry),
+    }
   );
+
+  if (response.status >= 200 && response.status < 300) {
+    alert("New Country Added!");
+  } else {
+    console.log("Error handling request");
+  }
 }
 
 function sendNewState() {
@@ -121,7 +117,8 @@ function sendNewState() {
 */
 function sortByAlpha(ArrayOfObjects) {
   ArrayOfObjects.sort((a, b) => {
-    (a = a.name.toLowerCase()), (b = b.name.toLowerCase());
+    a = a.name.toLowerCase();
+    b = b.name.toLowerCase();
 
     if (a < b) {
       return -1;
@@ -146,7 +143,7 @@ function validateInput(formElement) {
 */
 document
   .getElementById("submit-country")
-  .addEventListener("click", function (event) {
+  .addEventListener("click", async function (event) {
     event.preventDefault();
 
     let form = document.querySelector("#add-new-country");
@@ -154,7 +151,7 @@ document
     let newCountryCode = document.querySelector("#newCountryCode");
 
     if (validateInput(newCountryName) && validateInput(newCountryCode)) {
-      sendNewCountry();
+      await sendNewCountry();
       form.reset();
     } else {
       alert("All fields are required to submit.");
