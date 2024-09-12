@@ -1,102 +1,50 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Countries and States</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body onload="loadCountries()">
-    <div id="header">
-      <h1>Countries and States</h1>
+    <html>
+        <head>
+          
+        </head>
+        <body onload="getHttpRequest()">
+            <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+            <header>
+                <h1>Countries Selector</h1>
+            </header>
+            <script src="countries_JS.js"></script>             
 
-      <hr />
-    </div>
+            <div id="countriesForm">
+                <form>
+                    <label for="initCountries">Select a Country:</label>
+                    <select name="initCountries" id="initCountries" onchange="selectedOption()"></select> 
 
-    <main>
-      <div id="country-state-dropdown">
-        <label for="country">Country:</label>
-        <select
-          id="country"
-          name="country"
-          class="country-dropdown"
-          onchange="loadStates()"
-        >
-          <option value="" selected disabled>Select a country</option>
-        </select>
+                    <br>
 
-        <label for="state">State:</label>
-        <select id="state" name="state">
-          <option value="" selected disabled>Select a state</option>
-        </select>
-      </div>
+                    <h3>Click the dropdown below to show possible states</h3>
+                    <label for= "initStates">Select a State:</label>
+                    <select name="initStates" id="initStates"></select>
 
-      <hr />
+                    <br>
+                    <br>
+                </form> 
+                <form id="submitNewCountry" action="https://xc-countries-api.herokuapp.com/api/countries/" method="POST">
+                    <label for="newCountryName">If your country is not shown, enter its name followed by its code below:</label>
+                    <br>
+                    <br>
+                    <input type="text" id= "newCountryName" name="newCountryName">
+                    <input type="text" id= "newCountryCode" name="newCountryCode">
+                    <input type="submit" value="Submit" onclick="addCountryUsingHttpPushRequest()">
+                </form>
+                <form id="submitNewState" action="https://xc-countries-api.herokuapp.com/api/states/" method="POST">
+                    <br>
+                    <label for="newStateName">If your state is not shown, enter its name, code, and country below:</label>
+                    <br>
+                    <br>
+                    <input type="text" id="newStateName" name="newStateName">
+                    <input type="text" id="newStateCode" name="newStateCode">
+                    <select id="newStateCountry" name="newStateCountry" onchange=""></select>
 
-      <form id="add-new-country">
-        <h2>Add a New Country</h2>
+                    
+                    <input type="submit" value="Submit" onclick="addStateUsingHttpPushRequest()">
 
-        <label for="newCountryName">Country name:</label>
-        <input
-          type="text"
-          id="newCountryName"
-          name="newCountryName"
-          minlength="4"
-        />
-
-        <label for="newCountryCode">Country code:</label>
-        <input
-          type="text"
-          id="newCountryCode"
-          name="newCountryCode"
-          minlength="2"
-          maxlength="3"
-        />
-
-        <!-- Submit Button -->
-        <label for="submit-country"></label>
-        <button type="submit" id="submit-country">Submit</button>
-      </form>
-
-      <hr />
-
-      <form id="add-new-state">
-        <h2>Add a New State</h2>
-
-        <label for="newStateName">State name:</label>
-        <input
-          type="text"
-          id="newStateName"
-          name="newStateName"
-          minlength="4"
-        />
-
-        <label for="newStateCode">State Code:</label>
-        <input
-          type="text"
-          id="newStateCode"
-          name="newStateCode"
-          minlength="2"
-          maxlength="3"
-        />
-
-        <label for="newStateCountry">Countries:</label>
-        <select
-          id="newStateCountry"
-          name="newStateCountry"
-          class="country-dropdown"
-        >
-          <option value="" selected disabled>Select a country</option>
-        </select>
-
-        <!-- Submit Button -->
-        <label for="submit-state"></label>
-        <button type="submit" id="submit-state">Submit</button>
-      </form>
-    </main>
-
-    <script src="Countryandstate.js" async defer></script>
-  </body>
-</html>
+                </form>
+                        
+        </body>
+    </html>
